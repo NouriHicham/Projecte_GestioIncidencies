@@ -1,15 +1,38 @@
+import { useState } from "react";
+
 export default function Registro() {
+  const [user, setUser] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const dadesUsuaris = JSON.parse(localStorage.getItem('dades_usuaris')) || [];
+
+    const usuariExisteix = dadesUsuaris.some((usuari) => usuari.user === user);
+
+    if (usuariExisteix) {
+      alert("El usuario ya existe.");
+      return;
+    }else{
+      const nuevoUsuari = { user, password };
+      dadesUsuaris.push(nuevoUsuari);
+      localStorage.setItem('dades_usuaris', JSON.stringify(dadesUsuaris));
+      alert("Usuario registrado correctamente.");
+    }
+  };
+
   return (
     <>
       <main className="container mt-5">
         <div className="pt-5">
           <h1 className="w-100 text-center">Registro</h1>
-          <form action="" className="form p-4 border shadow bordered mt-5 mx-auto" style={{ width: '400px' }}>
+          <form onSubmit={handleSubmit} className="form p-4 border shadow bordered mt-5 mx-auto" style={{ width: '400px' }}>
             <label htmlFor="email" className="mt-2 form-label">User: </label>
-            <input type="text" className="form-control" placeholder="usuario@mail.com" />
+            <input type="text" className="form-control" placeholder="usuario@mail.com" value={user} onChange={(e)=>setUser(e.target.value)}/>
     
             <label htmlFor="pass" className="mt-2 form-label">Contraseña: </label>
-            <input type="password" className="form-control" />
+            <input type="password" className="form-control" value={password} onChange={(e) => setPassword(e.target.value)}/>
     
             <input type="submit" className="mt-4 w-100 btn btn-primary" value="Entrar" id="enviar" />
           </form>
