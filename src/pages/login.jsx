@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useUser } from "../components/UserContext";
 
 export default function Login() {
+  const {setUsername} = useUser();
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
 
@@ -11,6 +13,7 @@ export default function Login() {
     const usuariExisteix = dadesUsuaris.find((usuari) => usuari.user === user && usuari.password === password);
 
     if (usuariExisteix) {
+      setUsername(usuariExisteix);
       alert("Usuari autenticat correctament!");
     } else {
       alert("Usuari o contrasenya incorrectes.");
