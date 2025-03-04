@@ -8,10 +8,10 @@ export default function Header(){
                <div className="container-fluid">
                <Link className="navbar-brand" to="/">PANEL</Link>
                <div>
-                  <button class="btn btn-secondary ms-2"><Link className="nav-link" to="/">PANEL</Link></button>
-                  <button class="btn btn-secondary ms-2"><Link className="nav-link" to="/login">LOGIN</Link></button>
-                  <button class="btn btn-secondary ms-2"><Link className="nav-link" to="/registro">REGISTRO</Link></button>
-                  <button class="btn btn-secondary ms-2"><Link className="nav-link" to="/comentarios">COMENTARIOS</Link></button>
+                  <button className="btn btn-secondary ms-2"><Link className="nav-link" to="/">PANEL</Link></button>
+                  <button className="btn btn-secondary ms-2"><Link className="nav-link" to="/login">LOGIN</Link></button>
+                  <button className="btn btn-secondary ms-2"><Link className="nav-link" to="/registro">REGISTRO</Link></button>
+                  <button className="btn btn-secondary ms-2"><Link className="nav-link" to="/comentarios">COMENTARIOS</Link></button>
                </div>
                <div>
                   <span>administrador@fpllefia.com</span>
