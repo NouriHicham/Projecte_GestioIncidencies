@@ -1,4 +1,139 @@
+import { useEffect } from "react";
+
 export default function Panel() {
+
+  useEffect(() => {
+    const tiquetsPendientes = [
+      {
+        id: 123459,
+        fecha: '18/04/2023',
+        aula: 'T6',
+        grupo: 'DAW1',
+        ordenador: 'PC3',
+        descripcion: 'Error de impresora',
+        alumno: 'Ana Martínez',
+      },
+      {
+        id: 123460,
+        fecha: '19/04/2023',
+        aula: 'T8',
+        grupo: 'DAW2',
+        ordenador: 'PC4',
+        descripcion: 'Problema de acceso a archivos',
+        alumno: 'Pedro Gómez',
+      },
+      {
+        id: 123461,
+        fecha: '20/04/2023',
+        aula: 'T6',
+        grupo: 'DAW1',
+        ordenador: 'PC1',
+        descripcion: 'Aplicación se cierra inesperadamente',
+        alumno: 'Sofía Fernández',
+      },
+      {
+        id: 123462,
+        fecha: '21/04/2023',
+        aula: 'T7',
+        grupo: 'DAW2',
+        ordenador: 'PC2',
+        descripcion: 'Problema de conexión a la red',
+        alumno: 'Luis Torres',
+      },
+      {
+        id: 123463,
+        fecha: '22/04/2023',
+        aula: 'T8',
+        grupo: 'DAW1',
+        ordenador: 'PC3',
+        descripcion: 'Archivos corruptos',
+        alumno: 'Carolina Ramírez',
+      },
+    ];
+
+    const tiquetsResueltos = [
+      {
+        id: 123457,
+        fecha: '16/04/2023',
+        fechaResuelto: '15/05/2023',
+        aula: 'T7',
+        grupo: 'DAW2',
+        ordenador: 'PC1',
+        descripcion: 'Problema de conexión a Internet',
+        alumno: 'Maria López',
+      },
+      {
+        id: 123458,
+        fecha: '17/04/2023',
+        fechaResuelto: '15/05/2023',
+        aula: 'T8',
+        grupo: 'DAW1',
+        ordenador: 'PC2',
+        descripcion: 'Pantalla en blanco',
+        alumno: 'Juan Rodríguez',
+      },
+      {
+        id: 123459,
+        fecha: '18/04/2023',
+        fechaResuelto: '15/05/2023',
+        aula: 'T8',
+        grupo: 'DAW1',
+        ordenador: 'PC3',
+        descripcion: 'Error de impresora',
+        alumno: 'Ana Martínez',
+      },
+    ];
+
+    localStorage.setItem('dades_tiquets_pendientes', JSON.stringify(tiquetsPendientes));
+    localStorage.setItem('dades_tiquets_resueltos', JSON.stringify(tiquetsResueltos));
+  }, []);
+
+  const tiquetsPendientes = JSON.parse(localStorage.getItem('dades_tiquets_pendientes'));
+  const tiquetsResueltos = JSON.parse(localStorage.getItem('dades_tiquets_resueltos'));
+
+  function TablaPendientes(props) {
+    return (
+      <tr key={props.ticket.id}>
+        <td>{props.ticket.id}</td>
+        <td>{props.ticket.fecha}</td>
+        <td>{props.ticket.aula}</td>
+        <td>{props.ticket.grupo}</td>
+        <td>{props.ticket.ordenador}</td>
+        <td>{props.ticket.descripcion}</td>
+        <td>{props.ticket.alumno}</td>
+        <td>
+          <button className="btn btn-success" title="Resolver ticket">
+            Resolver
+          </button>
+        </td>
+        <td>
+          <button className="btn btn-warning" title="Añadir comentario">
+            <i className="bi bi-pencil" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
+          </button>
+        </td>
+        <td><button className="btn btn-info" title="Ver comentarios"><i className="bi bi-chat-left-text"></i>
+        </button></td>
+        <td><button className="btn btn-danger" title="Eliminar ticket"><i className="bi bi-trash3"></i>
+        </button></td>
+      </tr>
+    );
+  }
+
+  function TablaResueltos(props) {
+    return (
+      <tr key={props.ticket.id}>
+        <td>{props.ticket.id}</td>
+        <td>{props.ticket.fecha}</td>
+        <td>{props.ticket.fechaResuelto}</td>
+        <td>{props.ticket.aula}</td>
+        <td>{props.ticket.grupo}</td>
+        <td>{props.ticket.ordenador}</td>
+        <td>{props.ticket.descripcion}</td>
+        <td>{props.ticket.alumno}</td>
+      </tr>
+    );
+  }
+
   return (
     <>
       <main className="container mt-5">
@@ -19,99 +154,8 @@ export default function Panel() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>123459</td>
-              <td>18/04/2023</td>
-              <td>T6</td>
-              <td>DAW1</td>
-              <td>PC3</td>
-              <td>Error de impresora</td>
-              <td>Ana Martínez</td>
-              <td>
-                <button className="btn btn-success" title="Resolver ticket">Resolver</button>
-              </td>
-              <td>
-                <button className="btn btn-warning" title="Añadir comentario">
-                  <i className="bi bi-pencil" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
-                </button>
-              </td>
-              <td><button className="btn btn-info" title="Ver comentarios"><i className="bi bi-chat-left-text"></i>
-              </button></td>
-              <td><button className="btn btn-danger" title="Eliminar ticket"><i className="bi bi-trash3"></i>
-              </button></td>
-            </tr>
-            <tr>
-              <td>123460</td>
-              <td>19/04/2023</td>
-              <td>T8</td>
-              <td>DAW2</td>
-              <td>PC4</td>
-              <td>Problema de acceso a archivos</td>
-              <td>Pedro Gómez</td>
-              <td><button className="btn btn-success" title="Resolver ticket">Resolver</button></td>
-              <td><button className="btn btn-warning" title="Añadir comentario"><i className="bi  bi-pencil" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
-              </button>
-              </td>
-              <td><button className="btn btn-info" title="Ver comentarios"><i className="bi bi-chat-left-text"></i>
-              </button></td>
-              <td><button className="btn btn-danger" title="Eliminar ticket"><i className="bi bi-trash3"></i>
-              </button></td>
+            {tiquetsPendientes.map((ticket) => (<TablaPendientes ticket={ticket} key={ticket.id} />))}
 
-            </tr>
-            <tr>
-              <td>123461</td>
-              <td>20/04/2023</td>
-              <td>T6</td>
-              <td>DAW1</td>
-              <td>PC1</td>
-              <td>Aplicación se cierra inesperadamente</td>
-              <td>Sofía Fernández</td>
-              <td><button className="btn btn-success" title="Resolver ticket">Resolver</button></td>
-              <td><button className="btn btn-warning" title="Añadir comentario"><i className="bi  bi-pencil" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
-              </button>
-              </td>
-              <td><button className="btn btn-info" title="Ver comentarios"><i className="bi bi-chat-left-text"></i>
-              </button></td>
-              <td><button className="btn btn-danger" title="Eliminar ticket"><i className="bi bi-trash3"></i>
-              </button></td>
-
-            </tr>
-            <tr>
-              <td>123462</td>
-              <td>21/04/2023</td>
-              <td>T7</td>
-              <td>DAW2</td>
-              <td>PC2</td>
-              <td>Problema de conexión a la red</td>
-              <td>Luis Torres</td>
-              <td><button className="btn btn-success" title="Resolver ticket">Resolver</button></td>
-              <td><button className="btn btn-warning" title="Añadir comentario"><i className="bi  bi-pencil" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
-              </button>
-              </td>
-              <td><button className="btn btn-info" title="Ver comentarios"><i className="bi bi-chat-left-text"></i>
-              </button></td>
-              <td><button className="btn btn-danger" title="Eliminar ticket"><i className="bi bi-trash3"></i>
-              </button></td>
-
-            </tr>
-            <tr>
-              <td>123463</td>
-              <td>22/04/2023</td>
-              <td>T8</td>
-              <td>DAW1</td>
-              <td>PC3</td>
-              <td>Archivos corruptos</td>
-              <td>Carolina Ramírez</td>
-              <td><button className="btn btn-success" title="Resolver ticket">Resolver</button></td>
-              <td><button className="btn btn-warning" title="Añadir comentario"><i className="bi  bi-pencil" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
-              </button>
-              </td>
-              <td><button className="btn btn-info" title="Ver comentarios"><i className="bi bi-chat-left-text"></i>
-              </button></td>
-              <td><button className="btn btn-danger" title="Eliminar ticket"><i className="bi bi-trash3"></i>
-              </button></td>
-
-            </tr>
           </tbody>
         </table>
 
@@ -130,52 +174,8 @@ export default function Panel() {
             </tr>
           </thead>
           <tbody>
-            
-            <tr>
-              <td>123457</td>
-              <td>16/04/2023</td>
-              <td>15/05/2023</td>
-              <td>T7</td>
-              <td>DAW2</td>
-              <td>PC1</td>
-              <td>Problema de conexión a Internet</td>
-              <td>Maria López</td>
-              
-              <td><button className="btn btn-info" title="Ver comentarios"><i className="bi bi-chat-left-text"></i>
-              </button></td>
-              <td><button className="btn btn-danger" title="Eliminar ticket"><i className="bi bi-trash3"></i>
-              </button></td>
-            </tr>
-            <tr>
-              <td>123458</td>
-              <td>17/04/2023</td>
-              <td>15/05/2023</td>
-              <td>T8</td>
-              <td>DAW1</td>
-              <td>PC2</td>
-              <td>Pantalla en blanco</td>
-              <td>Juan Rodríguez</td>
-              <td><button className="btn btn-info" title="Ver comentarios"><i className="bi bi-chat-left-text"></i>
-              </button></td>
-              <td><button className="btn btn-danger" title="Eliminar ticket"><i className="bi bi-trash3"></i>
-              </button></td>
-            </tr>
-            <tr>
-              <td>123459</td>
-              <td>18/04/2023</td>
-              <td>15/05/2023</td>
-              <td>T8</td>
-              <td>DAW1</td>
-              <td>PC3</td>
-              <td>Error de impresora</td>
-              <td>Ana Martínez</td>
-              <td><button className="btn btn-info" title="Ver comentarios"><i className="bi bi-chat-left-text"></i>
-              </button></td>
-              <td><button className="btn btn-danger" title="Eliminar ticket"><i className="bi bi-trash3"></i>
-              </button></td>
-            </tr>
-          
-          
+            {tiquetsResueltos.map((ticket) => (<TablaResueltos ticket={ticket} key={ticket.id} />))}
+
           </tbody>
         </table>
       </main>
