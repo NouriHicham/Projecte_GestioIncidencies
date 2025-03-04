@@ -8,10 +8,18 @@ export default function Registro() {
     e.preventDefault();
 
     const dadesUsuaris = JSON.parse(localStorage.getItem('dades_usuaris')) || [];
-    const nuevoUsuari = { user, password };
-    dadesUsuaris.push(nuevoUsuari);
-    localStorage.setItem('dades_usuaris', JSON.stringify(dadesUsuaris));
-    alert("Usuari registrat correctament!");
+
+    const usuariExisteix = dadesUsuaris.some((usuari) => usuari.user === user);
+
+    if (usuariExisteix) {
+      alert("El usuario ya existe.");
+      return;
+    }else{
+      const nuevoUsuari = { user, password };
+      dadesUsuaris.push(nuevoUsuari);
+      localStorage.setItem('dades_usuaris', JSON.stringify(dadesUsuaris));
+      alert("Usuario registrado correctamente.");
+    }
   };
 
   return (
