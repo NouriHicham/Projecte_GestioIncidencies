@@ -1,10 +1,28 @@
+import { useState } from "react";
+
 export default function Login() {
+  const [user, setUser] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const dadesUsuaris = JSON.parse(localStorage.getItem('dades_usuaris')) || [];
+    const usuariExisteix = dadesUsuaris.find((usuari) => usuari.user === user && usuari.password === password);
+
+    if (usuariExisteix) {
+      alert("Usuari autenticat correctament!");
+    } else {
+      alert("Usuari o contrasenya incorrectes.");
+    }
+  };
+
   return (
     <>
       <main className="container mt-5">
         <div className="pt-5">
           <h1 className="w-100 text-center">Login</h1>
-          <form
+          <form onSubmit={handleSubmit}
             action=""
             className="form p-4 border shadow bordered mt-5 mx-auto"
             style={{ width: "400px" }}
@@ -16,12 +34,14 @@ export default function Login() {
               type="text"
               className="form-control"
               placeholder="usuario@mail.com"
+              value={user}
+              onChange={(e) => setUser(e.target.value)}
             />
 
             <label htmlFor="pass" className="mt-2 form-label">
               Contraseña:{" "}
             </label>
-            <input type="password" className="form-control" />
+            <input type="password" className="form-control" value={password} onChange={(e)=>setPassword(e.target.value)} />
 
             <input
               type="submit"
