@@ -12,6 +12,11 @@ export function UserProvider({ children }) {
   );
 }
 
+export function logout() {
+  localStorage.removeItem('dades_usuaris');
+  location.reload();
+}
+
 export function useUser() {
   return useContext(UserContext);
 }
