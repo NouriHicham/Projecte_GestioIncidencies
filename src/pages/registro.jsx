@@ -8,7 +8,6 @@ export default function Registro() {
     e.preventDefault();
 
     const dadesUsuaris = JSON.parse(localStorage.getItem('dades_usuaris')) || [];
-
     const usuariExisteix = dadesUsuaris.some((usuari) => usuari.user === user);
 
     if (usuariExisteix) {

@@ -13,7 +13,7 @@ export function UserProvider({ children }) {
 }
 
 export function logout() {
-  localStorage.removeItem('dades_usuaris');
+  localStorage.removeItem('usuari');
   location.reload();
 }
 
