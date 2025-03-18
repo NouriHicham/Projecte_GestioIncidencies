@@ -18,6 +18,7 @@ export default function Login() {
       setUsername(usuariExisteix);
       localStorage.setItem('usuari', JSON.stringify(usuariExisteix));
       navigate("/");
+      location.reload();
     } else {
       alert("Usuari o contrasenya incorrectes.");
     }

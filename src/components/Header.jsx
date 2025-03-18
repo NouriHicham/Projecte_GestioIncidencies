@@ -8,10 +8,9 @@ export default function Header(){
 
    //obtener el nombre del usuario que ha iniciado sesión
    useEffect(() => {
-      console.log("usuari: ", JSON.parse(localStorage.getItem('usuari')));
-      if(JSON.parse(localStorage.getItem('usuari'))){
-         setUser(localStorage.getItem('usuari').user);
-         console.log(user);
+      const usuario = JSON.parse(localStorage.getItem('usuari'));
+      if(usuario){
+         setUser(usuario.user);
          setActive(false);
       }else{
          setUser("Inicie sesión");
