@@ -1,6 +1,23 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { logout } from "./UserContext";
 
 export default function Header(){
+   const [user, setUser] = useState("");
+   const [active, setActive] = useState(false);
+
+   //obtener el nombre del usuario que ha iniciado sesión
+   useEffect(() => {
+      const usuario = JSON.parse(localStorage.getItem('usuari'));
+      if(usuario){
+         setUser(usuario.user);
+         setActive(false);
+      }else{
+         setUser("Inicie sesión");
+         setActive(true);
+      }
+   }, []);
+
    return (
       <>
          <header>
@@ -14,7 +31,7 @@ export default function Header(){
                   <button className="btn btn-secondary ms-2"><Link className="nav-link" to="/comentarios">COMENTARIOS</Link></button>
                </div>
                <div>
-                  <span>administrador@fpllefia.com</span>
+                  <span>{user} <button onClick={logout} disabled={active} className="btn btn-secondary ms-2">Cerrar sesion</button> </span>
                </div>
                </div>
             </nav>
