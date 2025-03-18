@@ -1,5 +1,32 @@
 export default function TiquetsPendents(props){
    
+  function eliminarTiquet(id){
+    // Eliminar el tiquet de la lista y localStorage
+    const pendientes = JSON.parse(localStorage.getItem('dades_tiquets_pendientes')) || [];
+    const pendientesActualitzats = pendientes.filter((tiquet) => tiquet.id!== id);
+    localStorage.setItem('dades_tiquets_pendientes', JSON.stringify(pendientesActualitzats));
+  }
+
+  function handleEliminar(){
+    eliminarTiquet(props.ticket.id);
+    location.reload();
+  }
+
+  function resolverTiquet(id){
+    // Resolver el tiquet y añadirlo a la lista de resueltos y localStorage
+    const pendientes = JSON.parse(localStorage.getItem('dades_tiquets_pendientes')) || [];
+    const resueltos = JSON.parse(localStorage.getItem('dades_tiquets_resueltos')) || [];
+    const pendiente = pendientes.find((tiquet) => tiquet.id === id);
+    resueltos.push(pendiente);
+    localStorage.setItem('dades_tiquets_pendientes', JSON.stringify(pendientes.filter((tiquet) => tiquet.id!== id)));
+    localStorage.setItem('dades_tiquets_resueltos', JSON.stringify(resueltos));
+  }
+
+  function handleResolver(){
+    resolverTiquet(props.ticket.id);
+    location.reload();
+  }
+
       return (
         <tr key={props.ticket.id}>
           <td>{props.ticket.id}</td>
@@ -10,9 +37,7 @@ export default function TiquetsPendents(props){
           <td>{props.ticket.descripcion}</td>
           <td>{props.ticket.alumno}</td>
           <td>
-            <button className="btn btn-success" title="Resolver ticket">
-              Resolver
-            </button>
+            <button className="btn btn-success" title="Resolver ticket" onClick={handleResolver}>Resolver</button>
           </td>
           <td>
             <button className="btn btn-warning" title="Añadir comentario">
@@ -21,7 +46,7 @@ export default function TiquetsPendents(props){
           </td>
           <td><button className="btn btn-info" title="Ver comentarios"><i className="bi bi-chat-left-text"></i>
           </button></td>
-          <td><button className="btn btn-danger" title="Eliminar ticket"><i className="bi bi-trash3"></i>
+          <td><button className="btn btn-danger" title="Eliminar ticket" onClick={handleEliminar}><i className="bi bi-trash3"></i>
           </button></td>
         </tr>
       );
