@@ -9,6 +9,7 @@ import { UserProvider } from './components/UserContext';
 
 function App() {
 
+  if (!localStorage.getItem('dades_tiquets_pendientes')){
   useEffect(() => {
     const tiquetsPendientes = [
       {
@@ -94,9 +95,10 @@ function App() {
     localStorage.setItem('dades_tiquets_pendientes', JSON.stringify(tiquetsPendientes));
     localStorage.setItem('dades_tiquets_resueltos', JSON.stringify(tiquetsResueltos));
   }, []);
-
   const tiquetsPendientes = JSON.parse(localStorage.getItem('dades_tiquets_pendientes'));
   const tiquetsResueltos = JSON.parse(localStorage.getItem('dades_tiquets_resueltos'));
+}
+
 
   return (
     <>
