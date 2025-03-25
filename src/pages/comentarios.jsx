@@ -1,44 +1,78 @@
+import React, { useState, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
+
+function Comentario(props) {
+  const { comentario, fecha, autor } = props;
+  return (
+    <div className="card p-3 mt-2">
+      <h5 className="">Autor: <span>{autor}</span><span className="ms-4">{new Date(fecha).toLocaleString()}</span></h5>
+      <p>{comentario}</p>
+    </div>
+  );
+}
+
 export default function Comentarios() {
+  const { id } = useParams();
+  const [comentarios, setComentarios] = useState([]);
+  const [nuevoComentario, setNuevoComentario] = useState("");
+  const usuario = JSON.parse(localStorage.getItem("usuari")) || "Anonimo";
+
+  useEffect(() => {
+    // Cargar comentarios del localStorage al montar el componente
+    const comentariosGuardados = JSON.parse(localStorage.getItem('comentarios')) || [];
+    setComentarios(comentariosGuardados);
+  }, []);
+
+  const comentariosActuales = comentarios.filter((comentario) => comentario.id === parseInt(id));
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const comentarioTexto = e.target.elements.comentario.value.trim();
+    if (comentarioTexto === "") return;
+
+    const nuevoComentarioObj = {
+      id: parseInt(id),
+      comentario: comentarioTexto,
+      fecha: new Date().toISOString(),
+      autor: usuario.user // Aquí podrías poner el nombre del usuario logueado
+    };
+
+    const nuevosComentarios = [...comentarios, nuevoComentarioObj];
+    setComentarios(nuevosComentarios);
+    localStorage.setItem('comentarios', JSON.stringify(nuevosComentarios));
+    setNuevoComentario("");
+  };
+
   return (
     <>
       <main className="container mt-5">
         <div className="d-flex">
           <h1>Comentarios</h1>
-          <button className="btn btn-link ms-auto"> &lt; Volver</button>
+          <button className="btn btn-link ms-auto"><Link className="nav-link" to="/"> &lt; Volver</Link></button>
         </div>
-        
-        <h2 className="my-4">Código ticket: <span>123456</span></h2>
+        <h2 className="my-4">Código ticket: <span>{id}</span></h2>
+        {comentariosActuales.length > 0 ? (
+          comentariosActuales.map((comentario, index) => (
+            <Comentario key={index} comentario={comentario.comentario} fecha={comentario.fecha} autor={comentario.autor} />
+          ))
+        ) : (
+          <p>No hay comentarios para este ticket.</p>
+        )}
         <div>
-          <form action="" className="form card p-3 shadow">
+          <form onSubmit={handleSubmit} className="form card p-3 shadow mt-4">
             <label htmlFor="comentario" className="form-label">Comentario: </label>
-            <textarea className="form-control" cols="3"></textarea>
-            <label htmlFor="fecha" className="form-label me-2 mt-3">Fecha: </label>
-            <div className="d-flex align-items-center">
-              <input type="datetime-local" className="form-control w-25" />
-              <button className="btn btn-success ms-auto">Añadir comentario</button>
+            <textarea 
+              className="form-control" 
+              id="comentario"
+              required
+            ></textarea>
+            <div className="d-flex align-items-center mt-3">
+              <button type="submit" className="btn btn-success ms-auto">Añadir comentario</button>
             </div>
           </form>
-
-          <div className="mt-4">
-            <div className="card p-3">
-              <h5 className="text-end">Autor: <span>Javier Caraculo</span><span className="ms-4">12/10/2022</span></h5>
-              <p>Este es un comentario Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit amet dignissimos laudantium blanditiis fuga recusandae sed culpa, earum pariatur repellat esse provident eaque totam quo sint iste, inventore deleniti quis.</p>
-            </div>
-            <div className="card p-3 mt-2">
-              <h5 className="text-end">Autor: <span>Javier Caraculo</span><span className="ms-4">12/10/2022</span></h5>
-              <p>Este es un comentario Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit amet dignissimos laudantium blanditiis fuga recusandae sed culpa, earum pariatur repellat esse provident eaque totam quo sint iste, inventore deleniti quis.</p>
-            </div>
-            <div className="card p-3 mt-2">
-              <h5 className="text-end">Autor: <span>Javier Caraculo</span><span className="ms-4">12/10/2022</span></h5>
-              <p>Este es un comentario Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit amet dignissimos laudantium blanditiis fuga recusandae sed culpa, earum pariatur repellat esse provident eaque totam quo sint iste, inventore deleniti quis.</p>
-            </div>
-            <div className="card p-3 mt-2">
-              <h5 className="text-end">Autor: <span>Javier Caraculo</span><span className="ms-4">12/10/2022</span></h5>
-              <p>Este es un comentario Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit amet dignissimos laudantium blanditiis fuga recusandae sed culpa, earum pariatur repellat esse provident eaque totam quo sint iste, inventore deleniti quis.</p>
-            </div>
-          </div>
         </div>
       </main>
     </>
   );
 }
+

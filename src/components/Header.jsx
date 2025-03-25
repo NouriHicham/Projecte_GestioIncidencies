@@ -28,7 +28,6 @@ export default function Header(){
                   <button className="btn btn-secondary ms-2"><Link className="nav-link" to="/">PANEL</Link></button>
                   <button className="btn btn-secondary ms-2"><Link className="nav-link" to="/login">LOGIN</Link></button>
                   <button className="btn btn-secondary ms-2"><Link className="nav-link" to="/registro">REGISTRO</Link></button>
-                  <button className="btn btn-secondary ms-2"><Link className="nav-link" to="/comentarios">COMENTARIOS</Link></button>
                </div>
                <div>
                   <span>{user} <button onClick={logout} disabled={active} className="btn btn-secondary ms-2">Cerrar sesion</button> </span>
