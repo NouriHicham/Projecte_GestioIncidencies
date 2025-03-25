@@ -108,7 +108,7 @@ function App() {
           <Route path="/" element={<Panel/>} />
           <Route path="/login" element={<Login/>} />
           <Route path="/registro" element={<Registro/>} />
-          <Route path="/comentarios" element={<Comentarios/>} />
+          <Route path="/comentarios/:id" element={<Comentarios/>} />
         </Routes>
       </UserProvider>
     </>
