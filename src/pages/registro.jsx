@@ -3,23 +3,26 @@ import { useState } from "react";
 export default function Registro() {
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
+  const role = 'user';
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const dadesUsuaris = JSON.parse(localStorage.getItem('dades_usuaris')) || [];
+    const dadesUsuaris = JSON.parse(localStorage.getItem('dades_usuaris'));
     const usuariExisteix = dadesUsuaris.some((usuari) => usuari.user === user);
+    const newId = dadesUsuaris.length;
 
     if (usuariExisteix) {
       alert("El usuario ya existe.");
       return;
-    }else{
-      const nuevoUsuari = { user, password };
+    } else {
+      const nuevoUsuari = { user, password, role, id: newId };
       dadesUsuaris.push(nuevoUsuari);
       localStorage.setItem('dades_usuaris', JSON.stringify(dadesUsuaris));
       alert("Usuario registrado correctamente.");
     }
   };
+
 
   return (
     <>
