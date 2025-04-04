@@ -5,6 +5,7 @@ export default function Usuarios() {
     const navigate = useNavigate();
     const [users, setUsers] = useState([]);
     const roles = ['admin', 'user',];
+    const usuario = JSON.parse(localStorage.getItem('usuari'));
 
     useEffect(() => {
       const usuarios = JSON.parse(localStorage.getItem('dades_usuaris'));
@@ -14,19 +15,27 @@ export default function Usuarios() {
     }, []);
 
     const handleRoleChange = (id, newRole) => {
-      const actualizarRole = users.map((user) =>
-        user.id === id ? { ...user, role: newRole } : user
-      );
-      setUsers(actualizarRole);
-      // Save updated users to localStorage or API
-      localStorage.setItem('dades_usuaris', JSON.stringify(actualizarRole));
+      if(usuario && usuario.role === 'admin') {
+        const actualizarRole = users.map((user) =>
+          user.id === id ? { ...user, role: newRole } : user
+        );
+        setUsers(actualizarRole);
+        localStorage.setItem('dades_usuaris', JSON.stringify(actualizarRole));
+
+      } else {
+        alert("No tienes permisos para cambiar roles.");
+      }
     };
 
     const handleDeleteUser = (id) => {
-      const filtrarUsuario = users.filter((user) => user.id !== id);
-      setUsers(filtrarUsuario);
-      // Save updated users to localStorage or API
-      localStorage.setItem('dades_usuaris', JSON.stringify(filtrarUsuario));
+      if(usuario && usuario.role === 'admin') {
+        const filtrarUsuario = users.filter((user) => user.id !== id);
+        setUsers(filtrarUsuario);
+        localStorage.setItem('dades_usuaris', JSON.stringify(filtrarUsuario));
+        
+      } else {
+        alert("No tienes permisos para eliminar usuarios.");
+      }
     };
 
     return (
