@@ -6,6 +6,8 @@ import Login from './pages/login';
 import Registro from './pages/registro';
 import Comentarios from './pages/comentarios';
 import { UserProvider } from './components/UserContext';
+import Usuarios from './pages/usuarios';
+import TiquetForm from './pages/tiquet';
 
 function App() {
 
@@ -91,10 +93,25 @@ function App() {
         alumno: 'Ana Martínez',
       },
     ];
-
+    const dades_usuaris = [
+      {
+        id: 0,
+        user: 'admin',
+        password: 'admin',
+        role : 'admin',
+      },
+      {
+        id: 1,
+        user: 'user',
+        password: 'user',
+        role : 'user',
+      }
+    ]
+    localStorage.setItem('dades_usuaris', JSON.stringify(dades_usuaris));
     localStorage.setItem('dades_tiquets_pendientes', JSON.stringify(tiquetsPendientes));
     localStorage.setItem('dades_tiquets_resueltos', JSON.stringify(tiquetsResueltos));
   }, []);
+
   const tiquetsPendientes = JSON.parse(localStorage.getItem('dades_tiquets_pendientes'));
   const tiquetsResueltos = JSON.parse(localStorage.getItem('dades_tiquets_resueltos'));
 }
@@ -109,6 +126,8 @@ function App() {
           <Route path="/login" element={<Login/>} />
           <Route path="/registro" element={<Registro/>} />
           <Route path="/comentarios/:id" element={<Comentarios/>} />
+          <Route path="/usuarios" element={<Usuarios />} />
+          <Route path="/tiquet" element={<TiquetForm/>} />
         </Routes>
       </UserProvider>
     </>

@@ -44,11 +44,6 @@ export default function TiquetsPendents(props){
       <td>
         <button className="btn btn-success" title="Resolver ticket" onClick={handleResolver}>Resolver</button>
       </td>
-      <td>
-        <button className="btn btn-warning" title="Añadir comentario">
-          <i className="bi bi-pencil" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
-        </button>
-      </td>
       <td><Link to={`/comentarios/${props.ticket.id}`}><button className="btn btn-info" title="Ver comentarios"><i className="bi bi-chat-left-text"></i></button></Link></td>
       <td><button className="btn btn-danger" title="Eliminar ticket" onClick={handleEliminar}><i className="bi bi-trash3"></i>
       </button></td>
