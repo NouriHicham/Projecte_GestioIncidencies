@@ -7,6 +7,7 @@ import Registro from './pages/registro';
 import Comentarios from './pages/comentarios';
 import { UserProvider } from './components/UserContext';
 import Usuarios from './pages/usuarios';
+import TiquetForm from './pages/tiquet';
 
 function App() {
 
@@ -126,6 +127,7 @@ function App() {
           <Route path="/registro" element={<Registro/>} />
           <Route path="/comentarios/:id" element={<Comentarios/>} />
           <Route path="/usuarios" element={<Usuarios />} />
+          <Route path="/tiquet" element={<TiquetForm/>} />
         </Routes>
       </UserProvider>
     </>

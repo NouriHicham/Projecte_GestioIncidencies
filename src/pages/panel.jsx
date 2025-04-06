@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import TiquetsPendents from "../components/TiquetsPendents";
 import TiquetsResolts from "../components/TiquetsResolts";
+import { Link } from "react-router-dom";
 
 export default function Panel() {
   const [tiquetsPendientes, setTiquetsPendientes] = useState([]);
@@ -17,9 +18,10 @@ export default function Panel() {
     <>
       <main className="container mt-5">
         <h1>Administración de incidencias</h1>
+        <button className="btn btn-secondary ms-2"><Link className="nav-link" to="/tiquet">+ Nuevo Tiquet</Link></button>
         <h2 className="mt-5">Tickets pendientes</h2>
         <table className="table mt-4">
-          <thead>
+          <thead >
             <tr>
               <th>Código</th>
               <th>Fecha</th>
